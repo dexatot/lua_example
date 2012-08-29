@@ -1,6 +1,6 @@
-local gameboard = { 1, 2, 2,
-                    1, 1, 2,
-                    1, 2, 1 }
+local gameboard = { -1, -1, -1,
+                    -1, -1, -1,
+                    -1, -1, -1 }
 
 local function print_geameboard(gameboard)
   -- функция печати игровой доски
@@ -36,14 +36,6 @@ local function fin(n)
   end  
 end
 
-local function game_status(board)
-  -- оценка доски и кто выиграл 
-
-  
-
-
-end
-
 local function ai_low( ... )
   -- body
 end
@@ -52,13 +44,36 @@ local function ai_high( ... )
   -- body
 end
 
+local function ai_game( ... )
+  -- body
+end
+
+local function pvp_or_ai()
+  print("1 - PvP")
+  print("2 - AI low")
+  print("3 - AI high")
+  local who = io.read()
+end
+
+local function pvp_game(gameboard, player)
+  if player == 1 then
+    io.write("X> ") 
+    return io.read()
+  elseif player == 0 then    
+    io.write("O> ")
+    return io.read()
+  end  
+end
+
 local function tic_tac_toe()
   -- основной цикл игры
   -- 1 - это крест
   -- 2 - это ноль
   -- -1 - это пустое поле
 
-  local count = 9
+  -- TODO fix count and end game
+  local count = 1
+  local game_i = true
 
   local function is_winner(gameboard, player)
     -- вычисляет player выиграл или нет
@@ -91,14 +106,24 @@ local function tic_tac_toe()
     end
     return true
   end
-
-  local game_i = true  
-  while game_i do
-
+  
+  while game_i do    
+    print_geameboard(gameboard)    
+    
+    local player = count % 2
+    local position = tonumber(pvp_game(gameboard, player))    
+    
+    if player == 0 then
+      gameboard[position] = 2
+    else
+      gameboard[position] = 1
+    end
+    
     game_i = who_win()
+    count = count + 1 
   end
 end
 
-print_geameboard(gameboard)
-tic_tac_toe()
 
+tic_tac_toe()
+print_geameboard(gameboard)
