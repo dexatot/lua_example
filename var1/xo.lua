@@ -4,8 +4,18 @@ local gameboard = { 1, 2, 2,
 
 local function print_geameboard(gameboard)
   -- функция печати игровой доски
+  
+  local function switch(i)
+    -- определяет что на доске
+    if i == 1 then return "X" end
+    if i == 2 then return "O" end
+    if i == -1 then return "." end 
+  end
+  
   for i=1,9,3 do    
-    print(gameboard[i],gameboard[i+1],gameboard[i+2])    
+    print(switch(gameboard[i]), 
+          switch(gameboard[i+1]),
+          switch(gameboard[i+2]))
     i = i + 3
   end
 end
