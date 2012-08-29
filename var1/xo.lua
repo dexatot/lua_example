@@ -11,7 +11,7 @@ local function print_geameboard(gameboard)
     if i == 2 then return "O" end
     if i == -1 then return "." end 
   end
-  
+
   for i=1,9,3 do    
     print(switch(gameboard[i]), 
           switch(gameboard[i+1]),
@@ -60,8 +60,8 @@ local function tic_tac_toe()
 
   local count = 9
 
-  local function winner(gameboard, player)
-    -- вычисляет какой player выиграл
+  local function is_winner(gameboard, player)
+    -- вычисляет player выиграл или нет
     local win = player * 3
     if gameboard[1] + gameboard[5] + gameboard[9] == win or
        gameboard[3] + gameboard[5] + gameboard[7] == win then 
@@ -77,18 +77,25 @@ local function tic_tac_toe()
     return false
   end
 
-  local game_i = true  
-  while game_i do
-    if winner(gameboard, 1) == true then
-      print("Player X('1') WINNNERS! :)")
-      game_i = false
-    elseif winner(gameboard, 2) == true then
-      print("Player O('2') WINNNERS! :)")
-      game_i = false
+  local function who_win()
+    -- кто выиграл
+    if is_winner(gameboard, 1) == true then
+      print("Player X WINNNERS! :)")
+      return false
+    elseif is_winner(gameboard, 2) == true then
+      print("Player O WINNNERS! :)")
+      return false
     elseif count == 9 then
       print("standoff :(")
-      game_i = false
+      return false
     end
+    return true
+  end
+
+  local game_i = true  
+  while game_i do
+
+    game_i = who_win()
   end
 end
 
