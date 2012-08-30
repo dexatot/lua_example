@@ -38,6 +38,7 @@ end
 
 local function ai_low( ... )
   -- body
+
 end
 
 local function ai_high( ... )
@@ -61,8 +62,17 @@ local function pvp_game(gameboard, player)
     return io.read()
   elseif player == 0 then    
     io.write("O> ")
-    return io.read()
+    return io.read() 
   end  
+end
+
+local function standoff(gameboard)
+  -- определение пустых полей и если нет ничья
+  for i=1,9 do
+    if gameboard[i] == -1
+      return false      
+  end
+  return true
 end
 
 local function tic_tac_toe()
@@ -100,7 +110,7 @@ local function tic_tac_toe()
     elseif is_winner(gameboard, 2) == true then
       print("Player O WINNNERS! :)")
       return false
-    elseif count == 9 then
+    elseif standoff(gameboard) then
       print("standoff :(")
       return false
     end
